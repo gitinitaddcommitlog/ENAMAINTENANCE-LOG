@@ -1,4 +1,10 @@
 const { app, BrowserWindow, Menu, ipcMain } = require('electron');
+// Set app name and icon for Windows
+app.setName('ENAWASTE MAINTENANCE LOG BOOK');
+// For Windows taskbar and title bar
+if (process.platform === 'win32') {
+    app.setAppUserModelId('com.enawaste.maintenance');
+}
 const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
 const { login } = require('./src/main/auth');
@@ -19,7 +25,8 @@ function createWindow() {
         height: 900,
         minWidth: 1200,
         minHeight: 700,
-        icon: path.join(__dirname, 'src/renderer/assets/images/icon.png'),
+        icon: path.join(__dirname, 'src/renderer/assets/images/g13.png'),
+        title: 'ENAWASTE MAINTENANCE LOG BOOK',
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: false,
@@ -29,6 +36,13 @@ function createWindow() {
     });
 
     mainWindow.loadFile('src/renderer/pages/login/login.html');
+    
+    // Prevent page title from changing
+    mainWindow.on('page-title-updated', (event) => {
+        event.preventDefault();
+        mainWindow.setTitle('ENAWASTE MAINTENANCE LOG BOOK');
+    });
+    
     mainWindow.webContents.openDevTools();
 
     mainWindow.once('ready-to-show', () => {
