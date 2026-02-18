@@ -3,11 +3,6 @@ function formatMoney(amount) {
     return 'GHS ' + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 }
 
-// Load vehicles and months when page loads
-console.log('Reports page loaded');
-loadVehiclesForSelect();
-loadMonthsForSelect();
-
 // Load vehicles into dropdown
 async function loadVehiclesForSelect() {
     try {
@@ -37,6 +32,22 @@ async function loadMonthsForSelect() {
         console.error('Error loading months:', err);
     }
 }
+
+// Force database connection check
+(async function() {
+    console.log('🔍 Checking database connection...');
+    try {
+        const vehicles = await window.api.db.getVehicles();
+        console.log('✅ Database connected, vehicles found:', vehicles.length);
+    } catch (err) {
+        console.error('❌ Database connection error:', err);
+    }
+})();
+
+// Load vehicles and months when page loads
+console.log('Reports page loaded');
+loadVehiclesForSelect();
+loadMonthsForSelect();
 
 // Generate vehicle history report with itemized services
 async function generateVehicleReport() {
@@ -318,38 +329,40 @@ function exportToPDF() {
     window.print();
 }
 
-// Add CSS for report selects
-const style = document.createElement('style');
-style.textContent = `
-    .report-select {
-        padding: 8px;
-        border: 1px solid #dde;
-        border-radius: 5px;
-        font-size: 14px;
-        background: white;
-    }
-    .report-select:focus {
-        outline: none;
-        border-color: #4a9eff;
-    }
-    
-    @media print {
-        .sidebar, .top-bar, .page-header, .add-btn, .export-btn, .report-select {
-            display: none !important;
+// Add CSS for report selects (only once)
+if (!document.getElementById('report-styles')) {
+    const style = document.createElement('style');
+    style.id = 'report-styles';
+    style.textContent = `
+        .report-select {
+            padding: 8px;
+            border: 1px solid #dde;
+            border-radius: 5px;
+            font-size: 14px;
+            background: white;
         }
-        .main-content {
-            margin: 0;
-            padding: 0;
+        .report-select:focus {
+            outline: none;
+            border-color: #4a9eff;
         }
-        table {
-            border-collapse: collapse;
-            width: 100%;
+        
+        @media print {
+            .sidebar, .top-bar, .page-header, .add-btn, .export-btn, .report-select {
+                display: none !important;
+            }
+            .main-content {
+                margin: 0;
+                padding: 0;
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+            th {
+                background: #f0f0f0 !important;
+                color: black !important;
+            }
         }
-        th {
-            background: #f0f0f0 !important;
-            color: black !important;
-        }
-    }
-`;
-document.head.appendChild(style);
-
+    `;
+    document.head.appendChild(style);
+}
