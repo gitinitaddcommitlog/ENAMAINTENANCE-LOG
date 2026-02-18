@@ -8,8 +8,8 @@
     "dev": "electron . --debug"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "electron": "^25.0.0",
-    "sqlite3": "^5.1.6",
-    "bcryptjs": "^2.4.3"
+    "sqlite3": "^5.1.7"
   }
 }

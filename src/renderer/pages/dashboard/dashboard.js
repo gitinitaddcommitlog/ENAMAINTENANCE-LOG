@@ -7,6 +7,11 @@ if (typeof window.vehicleChart !== 'undefined') {
 let vehicleChart = window.vehicleChart = null;
 let monthlyChart = window.monthlyChart = null;
 
+// Format currency with commas - ADD THIS RIGHT HERE
+function formatMoney(amount) {
+    return 'GHS ' + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+}
+
 // Load dashboard data immediately
 console.log('Dashboard loading...');
 loadDashboardData();
@@ -48,13 +53,12 @@ async function loadDashboardData() {
 // Calculate KPI values
 function calculateKPIs(vehicles, logs) {
     const totalSpent = logs.reduce((sum, log) => sum + (log.total_cost || 0), 0);
-    setElementText('totalSpent', totalSpent.toFixed(2));
-    setElementText('totalVehicles', vehicles.length);
-    setElementText('totalJobs', logs.length);
+    document.getElementById('totalSpent').textContent = formatMoney(totalSpent);
+    document.getElementById('totalVehicles').textContent = vehicles.length;
+    document.getElementById('totalJobs').textContent = logs.length;
     const avgCost = logs.length > 0 ? totalSpent / logs.length : 0;
-    setElementText('avgCost', avgCost.toFixed(2));
+    document.getElementById('avgCost').textContent = formatMoney(avgCost);
 }
-
 // Safe element update
 function setElementText(id, value) {
     const el = document.getElementById(id);
