@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ENA MAINTENANCE LOG</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>ENA<span>MAINTENANCE</span></h2>
+            </div>
+       <nav class="nav-menu">
+    <ul>
+        <li class="active"><a href="#" data-page="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+        <li><a href="#" data-page="vehicles"><i class="fas fa-truck"></i> Vehicles</a></li>
+        <li><a href="#" data-page="maintenance"><i class="fas fa-wrench"></i> Maintenance</a></li>
+        <li><a href="#" data-page="mechanics"><i class="fas fa-users"></i> Mechanics</a></li>
+        <li><a href="#" data-page="reports"><i class="fas fa-chart-bar"></i> Reports</a></li>
+    </ul>
+</nav>
+        </aside>
+        <main class="main-content">
+            <header class="top-bar">
+                <h1 id="page-title">Dashboard</h1>
+                <div class="user-info">
+                    <span>👤 <span id="userDisplay"></span></span>
+                    <button onclick="logout()" style="margin-left: 15px; padding: 5px 10px;">Logout</button>
+                </div>
+            </header>
+            <section class="content-area" id="content-area">
+                <div class="loading">Loading...</div>
+            </section>
+        </main>
+    </div>
+    <script src="assets/js/app.js"></script>
+    <script>
+        async function logout() {
+            await window.api.auth.logout();
+            window.location.href = 'pages/login/login.html';
+        }
+        
+        async function loadUser() {
+            const user = await window.api.auth.getCurrentUser();
+            if (user) {
+                document.getElementById('userDisplay').textContent = user.full_name || user.username;
+            }
+        }
+        loadUser();
+    </script>
+</body>
+</html>

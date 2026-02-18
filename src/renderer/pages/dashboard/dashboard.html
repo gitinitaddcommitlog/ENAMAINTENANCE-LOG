@@ -1,0 +1,132 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div class="dashboard-header">
+    <h2>Fleet Maintenance Overview</h2>
+    <div class="date-range">
+        <select id="monthSelector">
+            <option value="all">All Time</option>
+            <option value="2025-08">August 2025</option>
+            <option value="2025-09">September 2025</option>
+            <option value="2025-11">November 2025</option>
+        </select>
+    </div>
+</div>
+
+<!-- KPI Cards -->
+<div class="kpi-grid">
+    <div class="kpi-card total-spent">
+        <div class="kpi-icon">
+            <i class="fas fa-cedi-sign"></i>
+        </div>
+        <div class="kpi-content">
+            <h3>Total Spent (GHS)</h3>
+            <div class="kpi-value" id="totalSpent">0</div>
+            <small>All time maintenance cost</small>
+        </div>
+    </div>
+    
+    <div class="kpi-card active-vehicles">
+        <div class="kpi-icon">
+            <i class="fas fa-truck"></i>
+        </div>
+        <div class="kpi-content">
+            <h3>Active Vehicles</h3>
+            <div class="kpi-value" id="totalVehicles">0</div>
+            <small>In fleet</small>
+        </div>
+    </div>
+    
+    <div class="kpi-card pending-maintenance">
+        <div class="kpi-icon">
+            <i class="fas fa-wrench"></i>
+        </div>
+        <div class="kpi-content">
+            <h3>Maintenance Jobs</h3>
+            <div class="kpi-value" id="totalJobs">0</div>
+            <small>Completed</small>
+        </div>
+    </div>
+    
+    <div class="kpi-card avg-cost">
+        <div class="kpi-icon">
+            <i class="fas fa-chart-line"></i>
+        </div>
+        <div class="kpi-content">
+            <h3>Avg Cost/Job</h3>
+            <div class="kpi-value" id="avgCost">0</div>
+            <small>GHS per maintenance</small>
+        </div>
+    </div>
+</div>
+<div class="dashboard-grid">
+    <div class="chart-card">
+        <div class="card-header">
+            <h3>Maintenance Cost by Vehicle</h3>
+            <span class="badge">GHS</span>
+        </div>
+        <div class="chart-container">
+            <canvas id="vehicleCostChart"></canvas>
+        </div>
+    </div>
+    
+    <div class="chart-card">
+        <div class="card-header">
+            <h3>Monthly Maintenance Spend</h3>
+            <span class="badge">2025</span>
+        </div>
+        <div class="chart-container">
+            <canvas id="monthlyCostChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Vehicle Summary Table -->
+<div class="table-card">
+    <div class="card-header">
+        <h3>Vehicle Maintenance Summary</h3>
+    </div>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Vehicle</th>
+                <th>Truck Number</th>
+                <th>Jobs</th>
+                <th>Total Spent</th>
+                <th>Last Service</th>
+            </tr>
+        </thead>
+        <tbody id="vehicleSummary">
+            <tr>
+                <td>DAV1</td><td>GN 9945-12</td><td>1</td><td>GHS 13,700</td><td>23/09/2025</td>
+            </tr>
+            <tr>
+                <td>DAV2</td><td>GN 4067-18</td><td>1</td><td>GHS 2,000</td><td>21/11/2025</td>
+            </tr>
+            <tr>
+                <td>DAV3</td><td>GW 1295 Y</td><td>1</td><td>GHS 2,000</td><td>21/11/2025</td>
+            </tr>
+            <tr>
+                <td>VOLVO</td><td>GR 5772-11</td><td>1</td><td>GHS 5,500</td><td>20/08/2025</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Recent Activity -->
+<div class="table-card">
+    <div class="card-header">
+        <h3>Recent Maintenance Activity</h3>
+    </div>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Date</th><th>Vehicle</th><th>Service</th><th>Cost</th>
+            </tr>
+        </thead>
+        <tbody id="recentActivity">
+            <tr><td colspan="4">Loading...</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="dashboard.js"></script>

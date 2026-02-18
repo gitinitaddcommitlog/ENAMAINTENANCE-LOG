@@ -1,0 +1,77 @@
+<div class="page-header">
+    <h2>Fleet Vehicles</h2>
+    <button class="add-btn" onclick="showAddModal()">
+        <i class="fas fa-plus"></i> Add Vehicle
+    </button>
+</div>
+
+<div class="vehicles-table">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Truck Name</th>
+                <th>Truck Number</th>
+                <th>Model</th>
+                <th>Mileage</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="vehiclesList">
+            <tr><td colspan="7" class="loading-row">Loading vehicles...</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Add/Edit Vehicle Modal -->
+<div id="vehicleModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <h3 id="modalTitle">Add New Vehicle</h3>
+        <input type="hidden" id="vehicleId">
+        
+        <div class="form-group">
+            <label>Truck Name</label>
+            <input type="text" id="truckName" placeholder="e.g., DAV1, VOLVO">
+        </div>
+        
+        <div class="form-group">
+            <label>Truck Number</label>
+            <input type="text" id="truckNumber" placeholder="e.g., GN 9945-12">
+        </div>
+        
+        <div class="form-group">
+            <label>Model</label>
+            <input type="text" id="model" placeholder="e.g., DAV, VOLVO">
+        </div>
+        
+        <div class="form-group">
+            <label>Current Mileage</label>
+            <input type="number" id="mileage" placeholder="e.g., 45000">
+        </div>
+        
+        <div class="form-group">
+            <label>Status</label>
+            <select id="status">
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+                <option value="maintenance">Under Maintenance</option>
+            </select>
+        </div>
+        
+        <div class="modal-actions">
+            <button class="save-btn" onclick="saveVehicle()">
+                <i class="fas fa-save"></i> Save
+            </button>
+            <button class="cancel-btn" onclick="hideModal()">
+                <i class="fas fa-times"></i> Cancel
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<script src="vehicles.js"></script>
+<script>loadVehicles();</script>
